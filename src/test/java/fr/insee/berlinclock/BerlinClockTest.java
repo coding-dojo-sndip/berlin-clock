@@ -22,7 +22,7 @@ public class BerlinClockTest {
     public void testTopHoursShouldLightRedLampForEvery5Hours() {
         assertThat(berlinClock.getTopHours(0)).isEqualTo("OOOO");
         assertThat(berlinClock.getTopHours(13)).isEqualTo("RROO");
-        assertThat(berlinClock.getTopHours(23)).isEqualTo("RROO");
+        assertThat(berlinClock.getTopHours(23)).isEqualTo("RRRR");
         assertThat(berlinClock.getTopHours(24)).isEqualTo("RRRR");
     }
 
@@ -49,8 +49,8 @@ public class BerlinClockTest {
 
     @Test
     public void testBottomHoursthrowsIAE() {
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> berlinClock.getTopHours(40));
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> berlinClock.getTopHours(-5));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> berlinClock.getBottomHours(40));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> berlinClock.getBottomHours(-5));
     }
 
     // Top minutes should have 11 lamps
@@ -82,7 +82,7 @@ public class BerlinClockTest {
     @Test
     public void testTopMinutesthrowsIAE() {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> berlinClock.getTopMinutes(60));
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> berlinClock.getTopHours(-400));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> berlinClock.getTopMinutes(-400));
     }
 
     // Bottom minutes should have 4 lamps
@@ -100,6 +100,13 @@ public class BerlinClockTest {
         Assert.assertEquals("YYYY", berlinClock.getBottomMinutes(59));
     }
 
+    @Test
+    public void testBottomMinutesthrowsIAE() {
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> berlinClock.getBottomMinutes(60));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> berlinClock.getBottomMinutes(-400));
+    }
+    
+    
     // Berlin Clock should result in array with 4 elements
     @Test
     public void testBerlinClockShouldResultInArrayWith4Elements() {
